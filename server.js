@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 const axios = require('axios');
 const app = express();
 
@@ -8,11 +9,13 @@ app.use(cors()); // Enable CORS for all origins
 app.use(express.json());
 
 const VALID_PIN = 'Mys3cureP1n!123';
+const JWT_SECRET = 'your_jwt_secret_key';
 
 app.post('/api/authenticate', (req, res) => {
   const { pin, symbol } = req.body;
   if (pin === VALID_PIN) {
-    const authtoken = 'sample-token'; // Placeholder for real token
+    const authtoken = jwt.sign({ symbol }, JWT_SECRET, { expiresIn: '1h' });
+    //const authtoken = 'sample-token'; // Placeholder for real token
     res.json({ authtoken });
   } else {
     res.status(401).json({ error: 'Invalid PIN' });
