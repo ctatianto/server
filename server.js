@@ -8,7 +8,7 @@ app.use(cors()); // Enable CORS for all origins
 app.use(express.json());
 
 //const VALID_PIN =st 'Mys3cureP1n!123';
-const VALID_PIN = '123';
+const VALID_PIN = 'Mys3cureP1n!123';
 
 app.post('/api/authenticate', (req, res) => {
   const { pin, symbol } = req.body;

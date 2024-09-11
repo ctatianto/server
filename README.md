@@ -1,91 +1,116 @@
-Node.js Server
+# Node.js Authentication and WebSocket Token Server
 
-This repository contains a simple Node.js server built with Express.js. The server provides two main functionalities:
+## Overview
 
-PIN Authentication: An endpoint to authenticate users using a PIN.
-WebSocket Token Retrieval: An endpoint to fetch a WebSocket token from an external API.
-Features
+This Node.js project is a simple server that provides authentication and a WebSocket token endpoint. It uses Express for the server framework, CORS for cross-origin requests, and Axios for making HTTP requests.
 
-CORS Enabled: The server allows cross-origin requests.
-PIN Authentication: Verifies a provided PIN and returns an authentication token.
-WebSocket Token Retrieval: Fetches a WebSocket token from the KuCoin API.
-Installation
+## Features
 
-Follow these steps to set up the server on your local machine:
+- **Authentication Endpoint:** Validates a PIN and returns an authentication token if the PIN is correct.
+- **WebSocket Token Endpoint:** Fetches a WebSocket token from an external API.
 
-Clone the repository:
-bash
-Copy code
-git clone https://github.com/yourusername/your-repository.git
-Navigate to the project directory:
-bash
-Copy code
-cd your-repository
-Install the dependencies:
-bash
-Copy code
-npm install
-Usage
+## Requirements
 
-To start the server, run:
+- Node.js (version 14 or later recommended)
+- npm (Node Package Manager)
 
-bash
-Copy code
-npm start
-The server will start and listen on port 3000.
+## Installation
 
-API Endpoints
+To get started with this project, follow these steps:
 
-POST /api/authenticate
-Description: Authenticates a user with a PIN.
-Request Body:
-json
-Copy code
-{
-  "pin": "string",
-  "symbol": "string"
-}
-Response:
-Success:
-json
-Copy code
-{
-  "authtoken": "string"
-}
-Failure:
-json
-Copy code
-{
-  "error": "Invalid PIN"
-}
-Status Codes:
-200 OK for successful authentication
-401 Unauthorized for invalid PIN
-POST /ws-token
-Description: Retrieves a WebSocket token from the KuCoin API.
-Response:
-json
-Copy code
-{
-  // WebSocket token data
-}
-Status Codes:
-200 OK for successful retrieval
-500 Internal Server Error if the request to KuCoin fails
-Configuration
+1. **Clone the repository:**
 
-VALID_PIN: The PIN used for authentication is hardcoded in the server code. Change the value of VALID_PIN if needed.
-Testing
+    ```bash
+    git clone https://github.com/your-username/your-repository.git
+    ```
 
-You can test the server using tools like Postman or curl.
+2. **Navigate into the project directory:**
 
-Example using curl:
+    ```bash
+    cd your-repository
+    ```
 
-Authenticate:
-bash
-Copy code
-curl -X POST http://localhost:3000/api/authenticate -H "Content-Type: application/json" -d '{"pin": "123", "symbol": "BTC"}'
-Get WebSocket Token:
-bash
-Copy code
-curl -X POST http://localhost:3000/ws-token
+3. **Install dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+4. **Start the server:**
+
+    ```bash
+    node server.js
+    ```
+
+    The server will start and listen on port 3000.
+
+## API Endpoints
+
+### Authentication
+
+- **Endpoint:** `/api/authenticate`
+- **Method:** `POST`
+- **Request Body:**
+
+    ```json
+    {
+      "pin": "string",
+      "symbol": "string"
+    }
+    ```
+
+- **Response:**
+
+    - **Success (HTTP 200):**
+
+        ```json
+        {
+          "authtoken": "sample-token"
+        }
+        ```
+
+    - **Error (HTTP 401):**
+
+        ```json
+        {
+          "error": "Invalid PIN"
+        }
+        ```
+
+### WebSocket Token
+
+- **Endpoint:** `/ws-token`
+- **Method:** `POST`
+- **Response:**
+
+    - **Success (HTTP 200):**
+
+        ```json
+        {
+          "code": "200000", 
+          "data": {
+            "instanceServers": ["wss://ws-api-spot.kucoin.com/"], 
+            "token": "2neAiuYvAU61ZDXANAGAsiL4-iAExhsBXZxftpOeh_55i3Ysy2q2LEsEWU64mdzUOPusi34M_wGoSf7iNyEWJzOtkiolx5YvQG_14cxWCE6XK_T3WUmt9diYB9J6i9GjsxUuhPw3Blq6rhZlGykT3Vp1phUafnulOOpts-MEmEGeUN1IjBJYAf16v0aNwcNWJBvJHl5Vs9Y=.u1VjAeipt_mH45epkmCl-g=="
+          }
+        }
+        ```
+
+    - **Error (HTTP 500):**
+
+        ```json
+        {
+          "message": "Failed to fetch WebSocket token"
+        }
+        ```
+
+## Notes
+
+- The `VALID_PIN` is hardcoded as `'123'` for simplicity. In a production environment, you should use a more secure method for PIN management.
+- The WebSocket token endpoint fetches data from the KuCoin API. Ensure you handle any rate limits or restrictions imposed by the API.
+
+## Contributing
+
+If you would like to contribute to this project, please fork the repository and submit a pull request with your changes.
+## Contact
+
+For any questions or feedback, please contact [chandra.tatianto@gmail.com](mailto:chandra.tatianto@gmail.com).
