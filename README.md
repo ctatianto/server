@@ -105,7 +105,7 @@ To get started with this project, follow these steps:
 
 ## Notes
 
-- The `VALID_PIN` is hardcoded as `'123'` for simplicity. In a production environment, you should use a more secure method for PIN management.
+- The `VALID_PIN` is hardcoded as `'Mys3cureP1n!123'` for simplicity. In a production environment, you should use a more secure method for PIN management.
 - The WebSocket token endpoint fetches data from the KuCoin API. Ensure you handle any rate limits or restrictions imposed by the API.
 
 ## Contributing
